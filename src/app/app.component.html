@@ -1,0 +1,83 @@
+<div *ngIf="auth.isAuthenticated$ | async; else logout" class="section section-sm my-0 body-pattern">
+  <div *ngIf="auth.user$ | async as user">
+    <button style="background-color: goldenrod;" (click)="auth.logout()" class="btn float-right" [disabled]="loginForm.invalid">
+      Logout
+    </button><br><br>
+    <div style="margin-top: 15px; cursor: pointer" class="card border-0 mat-elevation-z3 bg-gradient-teal">
+      <div style="padding: 10px;" class="card-body px-lg-4 py-lg-4">
+        <div style="color: white;" class="text-center">
+          User Email : {{user.email}}
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 15px; cursor: pointer" class="card border-0 mat-elevation-z3 bg-gradient-warning">
+      <div style="padding: 10px;" class="card-body px-lg-4 py-lg-4">
+        <div  (click)="auth.loginWithRedirect()" class="text-center">
+          <img style="height: 80px; width: 80px; margin-right: 10px;  border-radius: 50%;" src="{{user.picture}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #logout>
+  <div class="section section-sm my-0 body-pattern">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-5 col-sm-8 col-10">
+          <div class="card border-0 mat-elevation-z3">
+            <div class="card-header bg-white">
+              <div class="text-center">
+                <img style="height: 100px;width: 100px; border-radius: 50%;" src=".//../assets/22.jpg" alt="logo">
+              </div>
+            </div>
+            <div class="card-body px-lg-4 py-lg-4" *ngIf="loginForm">
+              <div class="text-center text-muted mb-4">
+                <p class="description">Login Form</p>
+              </div>
+              <form [formGroup]="loginForm">
+                <div class="row">
+                  <mat-form-field class="col-12">
+                    <input type="text" matInput placeholder="User Name" formControlName="userName" vautocomplete="off"
+                      required />
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <input class="col-11" type="{{type}}" matInput placeholder="Password" formControlName="password"
+                      vautocomplete="off" required /><mat-icon (click)="eyeView()">{{icon}}</mat-icon>
+                  </mat-form-field>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-12">
+                  <button (click)="submitLogin()" class="btn btn-primary float-right" [disabled]="loginForm.invalid">
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div style="margin-top: 15px; cursor: pointer" class="card border-0 mat-elevation-z3 bg-gradient-gray-dark">
+            <div style="padding: 10px;" class="card-body px-lg-4 py-lg-4">
+              <div (click)="auth.loginWithRedirect()" style="color: white;" class="text-center">
+                <img style="height: 20px; width: 20px; margin-right: 10px;" src=".//../assets/23591.png">Login With
+                Google
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 15px; cursor: pointer" class="card border-0 mat-elevation-z3 bg-gradient-ocean">
+            <div style="padding: 10px;" class="card-body px-lg-4 py-lg-4">
+              <div (click)="auth.loginWithRedirect()" class="text-center">
+                <img style="height: 20px; width: 20px; margin-right: 10px;" src=".//../assets/25231.png">Login With
+                GitHub
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
